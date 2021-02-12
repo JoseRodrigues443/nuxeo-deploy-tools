@@ -10,6 +10,7 @@ git clone https://github.com/nohavy/nuxeo-vagrant
 cd nuxeo-vagrant
 vagrant up
 
+
 Une VM est installée et configurée avec une instance Nuxeo 8.3
 
 La configuration comprend : 
