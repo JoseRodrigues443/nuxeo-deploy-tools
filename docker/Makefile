@@ -1,29 +1,46 @@
 ifndef PORT
-override PORT = 8080
+override PORT = 9998
+endif
+ifndef DEPLOY_PORT
+override DEPLOY_PORT = 9998
 endif
 
 build:
-	make rm |:
-	make rmi |:
-	make compile
-	docker build -t $(USERNAME)/nuxeo . | tee ./logs/build.log
+	make clean
+	make compile |:
+	docker build -t 3d.investigation/nuxeo . | tee ./logs/build.log
+
+start-background:
+	echo "Running on port $(DEPLOY_PORT)"
+	docker run --name 3d.investigation-nuxeo --env-file ./configs/.env -p $(DEPLOY_PORT):8080 -t 3d.investigation/nuxeo | tee ./logs/run.log 
 
 start:
-	docker run --name $(USERNAME)-nuxeo -p 8080:$(PORT) -t $(USERNAME)/nuxeo | tee ./logs/run.log
+	echo "Running on port $(PORT)"
+	docker run -di --name 3d.investigation-nuxeo --env-file ./configs/.env -p $(PORT):8080 -t 3d.investigation/nuxeo --restart unless-stopped httpd
 
 run:
 	make build
 	make start
 
+deploy:
+	make build
+	make start-background
+
 console:
-	docker run --name $(USERNAME)-console-nuxeo -it --rm $(USERNAME)/nuxeo bash
+	docker run --name 3d.investigation-console-nuxeo --env-file ./configs/.env -it --rm 3d.investigation/nuxeo bash
 
 rm:
-	docker stop $(USERNAME)-nuxeo
-	docker rm $(USERNAME)-nuxeo
+	docker stop 3d.investigation-nuxeo
+	docker rm 3d.investigation-nuxeo
 	
 rmi:
-	docker rmi $(USERNAME)/nuxeo
+	docker rmi 3d.investigation/nuxeo
+
+clean:
+	make rm |:
+	make rmi |:
 
 compile:
 	./scripts/package_build.sh | tee ./logs/packages_build.log
+
+

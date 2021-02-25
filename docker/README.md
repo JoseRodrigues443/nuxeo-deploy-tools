@@ -10,7 +10,7 @@ See references here:
 
 ## What do we need? 
 
-### scripts
+### **scripts**
 
 Inside this folder we have the **package_build.sh** file that deals with all the compilation logic.
 
@@ -29,11 +29,11 @@ It is necessary to go through them all and unzip them to the **tmp** folder. The
 
   - It is necessary to build the maven to be able to obtain the SNAPSHOT.
 
-### configs
+### **configs**
 - .env
 
-### Dockerfile
+### **Dockerfile**
 
-### Makefile
+### **Makefile**
 
 
