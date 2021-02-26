@@ -12,7 +12,7 @@ build:
 
 start-background:
 	echo "Running on port $(DEPLOY_PORT)"
-	docker run --name 3d.investigation-nuxeo --env-file ./configs/.env  -p $(DEPLOY_PORT):8080 -t 3d.investigation/nuxeo --restart unless-stopped httpd | tee ./logs/run.log 
+	docker run --name 3d.investigation-nuxeo --env-file ./configs/.env  -p $(DEPLOY_PORT):8080 -t 3d.investigation/nuxeo --restart=always | tee ./logs/run.log 
 
 start:
 	echo "Running on port $(PORT)"

@@ -53,12 +53,12 @@ Use `make deploy` to build and run the instance on the port 9999 by default. To 
 cd /opt
 mkdir nuxeo
 cd nuxeo
-sudo chmod -R 777 ./
+sudo chmod -R 777 /opt/nuxeo/
 git clone https://github.com/JoseRodrigues443/nuxeo-deploy-tools.git
 
 sudo chmod -R 777 nuxeo-deploy-tools
-cd nuxeo-deploy-tools/docker
-make deploy
+cd /opt/nuxeo/nuxeo-deploy-tools/docker
+sudo make deploy
 
 ```
 
